@@ -39,8 +39,8 @@ export default function DataTable({ data, dimensions }: Props) {
             {dimensions.map(dim => (
               <td key={dim} style={{ border: '1px solid #333', textAlign: 'center' }}>{row[dim]}</td>
             ))}
-            <td style={{ border: '1px solid #333', textAlign: 'center' }}>{row.sales}</td>
-            <td style={{ border: '1px solid #333', textAlign: 'center' }}>{row.profit}</td>
+            <td style={{ border: '1px solid #333', textAlign: 'center' }}>{row['Tổng Số Lượng']}</td>
+            <td style={{ border: '1px solid #333', textAlign: 'center' }}>{row['Tổng Doanh Thu']}</td>
           </tr>
         ))}
       </tbody>

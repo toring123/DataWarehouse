@@ -3,14 +3,14 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 type OLAPState = {
   fact: string;
   dimensions: string[];
-  filters: Record<string, string>;
+  filters: Record<string, string[]>;
   data: any[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
 };
 
 const initialState: OLAPState = {
   fact: "banHang",
-  dimensions: ['Tháng', 'Khách Hàng'],
+  dimensions: ['Tháng'],
   filters: {},
   data: [],
   status: 'idle'
@@ -18,7 +18,7 @@ const initialState: OLAPState = {
 
 export const fetchOlapData = createAsyncThunk(
   'olap/fetchOlapData',
-  async ({ fact, dimensions, filters }: { fact: string, dimensions: string[], filters: Record<string, string> }) => {
+  async ({ fact, dimensions, filters }: { fact: string, dimensions: string[], filters: Record<string, string[]> }) => {
     const res = await fetch('http://26.255.219.60:8000/dw', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -38,7 +38,7 @@ const olapSlice = createSlice({
     setDimensions(state, action: PayloadAction<string[]>) {
       state.dimensions = action.payload;
     },
-    setFilters(state, action: PayloadAction<Record<string, string>>) {
+    setFilters(state, action: PayloadAction<Record<string, string[]>>) {
       state.filters = action.payload;
     }
   },
