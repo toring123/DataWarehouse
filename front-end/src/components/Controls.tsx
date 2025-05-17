@@ -6,28 +6,33 @@ const customerDimensions = ['Khách Hàng', 'Thành Phố', 'Bang'];
 const productDimensions = ['Mặt Hàng', 'Mặt Hàng'];
 
 type Props = {
+  fact: string;
   dimensions: string[];
   filters: Record<string, string>;
+  onChangeFact: (fact: string) => void;
   onChangeDimensions: (dims: string[]) => void;
   onChangeFilters: (filters: Record<string, string>) => void;
 };
 
 export default function Controls({
+  fact,
   dimensions,
   filters,
+  onChangeFact,
   onChangeDimensions,
   onChangeFilters,
 }: Props) {
+  const [selectedFact, setSelectedFact] = useState<string>('banHang');
   // State cho từng nhóm dimension
   const [selectedTimeDim, setSelectedTimeDim] = useState<string>('Tháng');
   const [selectedCustomerDim, setSelectedCustomerDim] = useState<string>('Khách Hàng');
   const [selectedProductDim, setSelectedProductDim] = useState<string>('Mặt Hàng');
   const [filterValues, setFilterValues] = useState<Record<string, string>>(filters);
-
+  
   // Toggle state cho từng dimension
   const [useTime, setUseTime] = useState<boolean>(true);
-  const [useCustomer, setUseCustomer] = useState<boolean>(true);
-  const [useProduct, setUseProduct] = useState<boolean>(true);
+  const [useCustomer, setUseCustomer] = useState<boolean>(false);
+  const [useProduct, setUseProduct] = useState<boolean>(false);
 
   useEffect(() => {
     setFilterValues(filters);
@@ -72,8 +77,10 @@ export default function Controls({
     if (useCustomer) dims.push(selectedCustomerDim);
     if (useProduct) dims.push(selectedProductDim);
     onChangeDimensions(dims);
+
+    onChangeFact(selectedFact);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedTimeDim, selectedCustomerDim, selectedProductDim, useTime, useCustomer, useProduct]);
+  }, [selectedTimeDim, selectedCustomerDim, selectedProductDim, useTime, useCustomer, useProduct, selectedFact]);
 
   // Xử lý filter
   const handleFilterChange = (dim: string, value: string) => {
