@@ -119,15 +119,15 @@ def get_result(fact: str, dimensions: list, filters: dict):
 
 # Ví dụ:
 def main():
-    # fact = "banHang"
-    # dimensions = ["Thành Phố", "Bang", "Khách Hàng", "Tháng", "Mặt Hàng"]
-    # filters = {"Mặt Hàng": ["1010"], "Quý": ["1"]}
-    # print(get_result(fact, dimensions, filters))
-
-    fact = "kho"
-    dimensions = ["Cửa Hàng", "Mặt Hàng", "Tháng"]
-    filters = {"Cửa Hàng": ["12"]}
+    fact = "banHang"
+    dimensions = ["Thành Phố", "Bang", "Khách Hàng", "Tháng", "Mặt Hàng"]
+    filters = {}
     print(get_result(fact, dimensions, filters))
+
+    # fact = "kho"
+    # dimensions = ["Tháng"]
+    # filters = {"Cửa Hàng": ["12"]}
+    # print(get_result(fact, dimensions, filters))
 
 if __name__ == "__main__":
     main()
