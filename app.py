@@ -8,30 +8,22 @@ CORS(app)
 @app.route('/dw', methods=['POST'])
 def process_request():
     data = request.get_json()
-    fact = data.get('factTable')
+    fact = data.get('fact')
     dimensions = data.get('dimensions')
     filters = data.get('filters')
     print("Received data:", data) 
+    print(f"{fact} - {dimensions} - {filters}")
     
-
-    if not fact or not dimensions or not filters:
-        return jsonify({
-            "status": "error",
-            "message": "Thiếu tham số fact, dimensions hoặc filters"
-        }), 400
-
     try:
         result = get_result(fact, dimensions, filters)
-        
-        return jsonify({
-            "status": "success",
-            "result": result
-        })
+        print(result)
+        return jsonify(result)
     except Exception as e:
         return jsonify({
             "status": "error",
             "message": str(e)
         }), 500
+        
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
