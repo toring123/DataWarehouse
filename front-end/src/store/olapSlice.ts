@@ -10,16 +10,18 @@ type OLAPState = {
 
 const initialState: OLAPState = {
   fact: "banHang",
-  dimensions: ['Tháng'],
+  dimensions: ['Năm'],
   filters: {},
   data: [],
   status: 'idle'
 };
 
+const API_KEY = 'http://26.83.102.88:8000/dw'
+const API_TEST = 'api/olap-data'
 export const fetchOlapData = createAsyncThunk(
   'olap/fetchOlapData',
   async ({ fact, dimensions, filters }: { fact: string, dimensions: string[], filters: Record<string, string[]> }) => {
-    const res = await fetch('http://26.255.219.60:8000/dw', {
+    const res = await fetch(`${API_KEY}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ fact, dimensions, filters })

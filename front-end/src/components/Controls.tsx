@@ -7,8 +7,9 @@ const factTables = ['banHang', 'kho']
 const timeDimensions = ['Năm', 'Quý', 'Tháng'];
 const customerDimensions = ['Bang', 'Thành Phố', 'Khách Hàng'];
 const productDimensions = ['Mặt Hàng', 'Mặt Hàng'];
-const storedDimensions = ['Bang', 'Thành phố', 'Cửa Hàng']
-const allDimension = ['Năm', 'Quý', 'Tháng', 'Bang', 'Thành Phố', 'Khách Hàng', 'Mặt Hàng', 'Cửa Hàng'];
+const storedDimensions = ['Bang', 'Thành Phố', 'Cửa Hàng']
+const allDimension1 = ['Năm', 'Quý', 'Tháng', 'Bang', 'Thành Phố', 'Khách Hàng', 'Mặt Hàng'];
+const allDimension2 = ['Năm', 'Quý', 'Tháng', 'Bang', 'Thành Phố', 'Cửa Hàng', 'Mặt Hàng'];
 
 type Props = {
   fact: string;
@@ -33,6 +34,7 @@ export default function Controls({
   const [selectedCustomerDim, setSelectedCustomerDim] = useState<string>('Khách Hàng');
   const [selectedStoredDim, setSelectedStoredDim] = useState<string>('Cửa Hàng');
   const [selectedProductDim, setSelectedProductDim] = useState<string>('Mặt Hàng');
+  const [allFilter, setAllFilter] = useState<string[]>(allDimension1);
   const [filterValues, setFilterValues] = useState<Record<string, string[]>>(filters);
 
   // Toggle state cho từng dimension
@@ -45,7 +47,13 @@ export default function Controls({
 
   useEffect(() => {
     setFilterValues(filters);
-  }, [filters]);
+    onChangeFact(selectedFactTable);
+    if (selectedFactTable === 'banHang'){
+      setAllFilter(allDimension1);
+    } else{
+      setAllFilter(allDimension2);
+    }
+  }, [filters, selectedFactTable]);
 
   const handleFactChange = (e: React.ChangeEvent<HTMLSelectElement>) =>{
     setSelectedFactTable(e.target.value)
@@ -99,35 +107,17 @@ export default function Controls({
 
     // Thêm các dimension đang bật, theo logic mới
     if (useTime) {
-      if (selectedTimeDim === 'Tháng') {
-        dims.push('Năm', 'Quý', 'Tháng');
-      } else if (selectedTimeDim === 'Quý') {
-        dims.push('Năm', 'Quý');
-      } else if (selectedTimeDim === 'Năm') {
-        dims.push('Năm');
-      }
+      dims.push(selectedTimeDim);
     }
 
     if (selectedFactTable === 'banHang') {
-        if (useCustomer) {
-          if (selectedCustomerDim === 'Khách Hàng') {
-            dims.push('Bang', 'Thành Phố', 'Khách Hàng');
-          } else if (selectedCustomerDim === 'Thành Phố') {
-            dims.push('Bang', 'Thành Phố');
-          } else if (selectedCustomerDim === 'Bang') {
-            dims.push('Bang');
-          }
-        }
+      if (useCustomer) {
+        dims.push(selectedCustomerDim);
+      }
     }
     else {
       if (useStored) {
-        if (selectedStoredDim === 'Cửa Hàng') {
-          dims.push('Bang', 'Thành phố', 'Cửa Hàng');
-        } else if (selectedStoredDim === 'Thành phố') {
-          dims.push('Bang', 'Thành phố');
-        } else if (selectedStoredDim === 'Bang') {
-          dims.push('Bang');
-        }
+        dims.push(selectedStoredDim)
       }
     }
 
@@ -141,10 +131,9 @@ export default function Controls({
 
     // setActiveDims(dims);
     onChangeDimensions(dims);
-
-    onChangeFact(selectedFactTable);
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedTimeDim, selectedCustomerDim, selectedProductDim, useTime, useCustomer, useProduct, selectedFactTable, selectedStoredDim, useStored]);
+  }, [selectedTimeDim, selectedCustomerDim, selectedProductDim, useTime, useCustomer, useProduct, selectedStoredDim, useStored]);
 
   return (
     <div style={{ marginBottom: 16 }}>
@@ -173,7 +162,7 @@ export default function Controls({
         <span style={{ margin: '0 8px', color: useTime ? undefined : '#aaa' }}>{selectedTimeDim}</span>
         <button type="button" onClick={() => handleTimeChange(1)} disabled={!useTime}>▼</button>
       </span>
-      {selectedFactTable === 'Fact_BanHang' ? (
+      {selectedFactTable === 'banHang' ? (
         <span style={{ marginLeft: 16 }}>
           <label>
             <input
@@ -220,7 +209,7 @@ export default function Controls({
       </span>
       <br />
       {/* filter */}
-      <FilterInputs allDimension={allDimension} onFilterChange={onChangeFilters}/>
+      <FilterInputs allDimension={allFilter} onFilterChange={onChangeFilters}/>
     </div>
   );
 }

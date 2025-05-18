@@ -2,10 +2,13 @@ import React from 'react';
 
 type Props = {
   data: any[];
-  dimensions: string[];
 };
 
-export default function DataTable({ data, dimensions }: Props) {
+export default function DataTable({ data }: Props) {
+  if (!data || data.length === 0) return <p>Không có dữ liệu để hiển thị.</p>;
+
+  const columns = Object.keys(data[0]);
+
   return (
     <table
       style={{
@@ -17,30 +20,28 @@ export default function DataTable({ data, dimensions }: Props) {
     >
       <thead>
         <tr>
-          {dimensions.map(dim => (
+          {columns.map((col) => (
             <th
-              key={dim}
+              key={col}
               style={{
                 border: '1px solid #333',
                 background: '#f6f6f6',
                 textAlign: 'center'
               }}
             >
-              {dim}
+              {col}
             </th>
           ))}
-          <th style={{ border: '1px solid #333', background: '#f6f6f6', textAlign: 'center' }}>Tổng số lượng</th>
-          <th style={{ border: '1px solid #333', background: '#f6f6f6', textAlign: 'center' }}>Tổng doanh thu</th>
         </tr>
       </thead>
       <tbody>
         {data.map((row, i) => (
           <tr key={i}>
-            {dimensions.map(dim => (
-              <td key={dim} style={{ border: '1px solid #333', textAlign: 'center' }}>{row[dim]}</td>
+            {columns.map((col) => (
+              <td key={col} style={{ border: '1px solid #333', textAlign: 'center' }}>
+                {row[col]}
+              </td>
             ))}
-            <td style={{ border: '1px solid #333', textAlign: 'center' }}>{row['Tổng Số Lượng']}</td>
-            <td style={{ border: '1px solid #333', textAlign: 'center' }}>{row['Tổng Doanh Thu']}</td>
           </tr>
         ))}
       </tbody>

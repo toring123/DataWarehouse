@@ -44,7 +44,7 @@ const FilterInputs: React.FC<FilterInputsProps> = ({ allDimension, onFilterChang
       {allDimension.map(dim => (
         <div key={dim} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
           <label style={{ minWidth: 60 }}>{dim}</label>
-          {filterValues[dim].map((val, i) => (
+          {/* {filterValues[dim].map((val, i) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
               <input
                 value={val}
@@ -56,7 +56,7 @@ const FilterInputs: React.FC<FilterInputsProps> = ({ allDimension, onFilterChang
                 <button onClick={() => handleRemoveInput(dim, i)} style={{ color: 'red' }}>−</button>
               )}
             </div>
-          ))}
+          ))} */}
           <button onClick={() => handleAddInput(dim)}>+</button>
         </div>
       ))}

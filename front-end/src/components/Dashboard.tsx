@@ -21,11 +21,11 @@ export default function Dashboard() {
         fact = {fact}
         dimensions={dimensions}
         filters={filters}
-        onChangeFact = {f => dispatch(setFact(f))}
+        onChangeFact= {f => dispatch(setFact(f))}
         onChangeDimensions={dims => dispatch(setDimensions(dims))}
         onChangeFilters={f => dispatch(setFilters(f))}
       />
-      {status === 'loading' ? <p>Loading...</p> : <DataTable data={data} dimensions={dimensions} />}
+      {status === 'loading' ? <p>Loading...</p> : <DataTable data={data} />}
     </div>
   );
 }

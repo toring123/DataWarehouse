@@ -29,10 +29,10 @@ export async function POST(req: NextRequest) {
   filtered.forEach(row => {
     const key = dimensions.map((dim: string) => row[dim as keyof FactRow]).join('|');
     if (!grouped[key]) {
-      grouped[key] = { ...Object.fromEntries(dimensions.map((dim: string) => [dim, row[dim as keyof FactRow]])), sales: 0, profit: 0 };
+      grouped[key] = { ...Object.fromEntries(dimensions.map((dim: string) => [dim, row[dim as keyof FactRow]])), "Tổng Số Lượng": 0, "Tổng Doanh Thu": 0 };
     }
-    grouped[key].sales += row["Tổng số lượng"];
-    grouped[key].profit += row["Tổng doanh thu"];
+    grouped[key]["Tổng Số Lượng"] += row["Tổng số lượng"];
+    grouped[key]["Tổng Doanh Thu"] += row["Tổng doanh thu"];
   });
 
   return NextResponse.json(Object.values(grouped));
