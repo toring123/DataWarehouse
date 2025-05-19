@@ -25,7 +25,7 @@ export default function Dashboard() {
         onChangeDimensions={dims => dispatch(setDimensions(dims))}
         onChangeFilters={f => dispatch(setFilters(f))}
       />
-      {status === 'loading' ? <p>Loading...</p> : <DataTable data={data} />}
+      {status === 'loading' ? <p>Loading...</p> : <DataTable fact={cube} data={data} dimensions={dimensions} />}
     </div>
   );
 }

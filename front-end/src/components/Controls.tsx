@@ -48,11 +48,6 @@ export default function Controls({
   useEffect(() => {
     setFilterValues(filters);
     onChangeCube(selectedFactTable);
-    if (selectedFactTable === 'banHang_3d'){
-      setAllFilter(allDimension1);
-    } else{
-      setAllFilter(allDimension2);
-    }
   }, [filters, selectedFactTable]);
 
   const handleFactChange = (e: React.ChangeEvent<HTMLSelectElement>) =>{
@@ -218,7 +213,7 @@ export default function Controls({
       </span>
       <br />
       {/* filter */}
-      <FilterInputs allDimension={allFilter} onFilterChange={onChangeFilters}/>
+      <FilterInputs allDimension={selectedCustomerDim === "banHang_3d" ? allDimension1:allDimension2} onFilterChange={onChangeFilters}/>
     </div>
   );
 }
