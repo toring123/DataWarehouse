@@ -43,6 +43,7 @@ export default function Chart1() {
         } else if (TYPES[typeIndex] === "Tháng") {
             dimensions.push("Tháng");
         }
+        
         const postData = {
             cube: 'banHang_3d',
             dimensions,
@@ -98,30 +99,6 @@ export default function Chart1() {
                 <Select type={'thanhpho'} name="thanhPho" value ={filters.thanhPho} onChangeOption={handleFilterChange}/>
                 <Select type={'bang'} name="bang" value = {filters.bang} onChangeOption={handleFilterChange}/>
                 <Select type={'mathang'} name="matHang" value = {filters.matHang} onChangeOption={handleFilterChange}/>
-                {/* <input
-                    type="text"
-                    name="thanhPho"
-                    placeholder="Thành Phố"
-                    value={filters.thanhPho}
-                    onChange={handleFilterChange}
-                    style={inputStyle}
-                />
-                <input
-                    type="text"
-                    name="bang"
-                    placeholder="Bang"
-                    value={filters.bang}
-                    onChange={handleFilterChange}
-                    style={inputStyle}
-                />
-                <input
-                    type="text"
-                    name="matHang"
-                    placeholder="Mặt Hàng"
-                    value={filters.matHang}
-                    onChange={handleFilterChange}
-                    style={inputStyle}
-                /> */}
             </div>
         </div>
 
