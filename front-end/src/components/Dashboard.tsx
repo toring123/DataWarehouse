@@ -4,24 +4,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import Controls from './Controls';
 import DataTable from './DataTable';
 import { RootState, AppDispatch } from '@/store/store';
-import { setDimensions, setFilters, fetchOlapData, setFact } from '@/store/olapSlice';
+import { setDimensions, setFilters, fetchOlapData, setCube } from '@/store/olapSlice';
 
 export default function Dashboard() {
   const dispatch = useDispatch<AppDispatch>();
-  const { fact, dimensions, filters, data, status } = useSelector((state: RootState) => state.olap);
+  const { cube, dimensions, filters, data, status } = useSelector((state: RootState) => state.olap);
 
   useEffect(() => {
-    dispatch(fetchOlapData({ fact, dimensions, filters }));
-  }, [fact, dimensions, filters, dispatch]);
+    dispatch(fetchOlapData({ cube, dimensions, filters }));
+  }, [cube, dimensions, filters, dispatch]);
 
   return (
     <div>
       <h2>OLAP Dashboard</h2>
       <Controls
-        fact = {fact}
+        cube = {cube}
         dimensions={dimensions}
         filters={filters}
-        onChangeFact= {f => dispatch(setFact(f))}
+        onChangeCube= {f => dispatch(setCube(f))}
         onChangeDimensions={dims => dispatch(setDimensions(dims))}
         onChangeFilters={f => dispatch(setFilters(f))}
       />

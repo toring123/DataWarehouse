@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import FilterInputs from './FilterInputs';
 
 
-const factTables = ['banHang', 'kho']
+const factTables = ['banHang_3d', 'kho_3d']
 const timeDimensions = ['Năm', 'Quý', 'Tháng'];
 const customerDimensions = ['Bang', 'Thành Phố', 'Khách Hàng'];
 const productDimensions = ['Mặt Hàng', 'Mặt Hàng'];
@@ -12,26 +12,26 @@ const allDimension1 = ['Năm', 'Quý', 'Tháng', 'Bang', 'Thành Phố', 'Khách
 const allDimension2 = ['Năm', 'Quý', 'Tháng', 'Bang', 'Thành Phố', 'Cửa Hàng', 'Mặt Hàng'];
 
 type Props = {
-  fact: string;
+  cube: string;
   dimensions: string[];
   filters: Record<string, string[]>;
-  onChangeFact: (factTable: string) => void
+  onChangeCube: (factTable: string) => void
   onChangeDimensions: (dims: string[]) => void;
   onChangeFilters: (filters: Record<string, string[]>) => void;
 };
 
 export default function Controls({
-  fact,
+  cube,
   dimensions,
   filters,
-  onChangeFact,
+  onChangeCube,
   onChangeDimensions,
   onChangeFilters,
 }: Props) {
   // State cho từng nhóm dimension
-  const [selectedFactTable, setSelectedFactTable] = useState <string>('banHang');
+  const [selectedFactTable, setSelectedFactTable] = useState <string>('banHang_3d');
   const [selectedTimeDim, setSelectedTimeDim] = useState<string>('Tháng');
-  const [selectedCustomerDim, setSelectedCustomerDim] = useState<string>('Khách Hàng');
+  const [selectedCustomerDim, setSelectedCustomerDim] = useState<string>('Thành Phố');
   const [selectedStoredDim, setSelectedStoredDim] = useState<string>('Cửa Hàng');
   const [selectedProductDim, setSelectedProductDim] = useState<string>('Mặt Hàng');
   const [allFilter, setAllFilter] = useState<string[]>(allDimension1);
@@ -47,8 +47,8 @@ export default function Controls({
 
   useEffect(() => {
     setFilterValues(filters);
-    onChangeFact(selectedFactTable);
-    if (selectedFactTable === 'banHang'){
+    onChangeCube(selectedFactTable);
+    if (selectedFactTable === 'banHang_3d'){
       setAllFilter(allDimension1);
     } else{
       setAllFilter(allDimension2);
@@ -107,12 +107,21 @@ export default function Controls({
 
     // Thêm các dimension đang bật, theo logic mới
     if (useTime) {
-      dims.push(selectedTimeDim);
+      if(selectedTimeDim === "Tháng")
+        dims.push("Năm", "Quý", "Tháng");
+      else if (selectedTimeDim==="Quý")
+        dims.push("Năm", "Quý");
+      else dims.push("Năm")
+      
     }
 
-    if (selectedFactTable === 'banHang') {
+    if (selectedFactTable === 'banHang_3d') {
       if (useCustomer) {
-        dims.push(selectedCustomerDim);
+        if(selectedCustomerDim==="Khách Hàng")
+          dims.push("Bang", "Thành Phố", "Khách Hàng");
+        else if (selectedCustomerDim==="Thành Phố")
+          dims.push("Bang", "Thành Phố");
+        else dims.push("Bang")
       }
     }
     else {
@@ -137,7 +146,7 @@ export default function Controls({
 
   return (
     <div style={{ marginBottom: 16 }}>
-      <strong>Fact:</strong>
+      <strong>cube:</strong>
       <select value = {selectedFactTable} onChange = {handleFactChange}>
         {factTables.map((factTable, index) =>{
           return <option key = {index} value = {factTable}>
@@ -162,7 +171,7 @@ export default function Controls({
         <span style={{ margin: '0 8px', color: useTime ? undefined : '#aaa' }}>{selectedTimeDim}</span>
         <button type="button" onClick={() => handleTimeChange(1)} disabled={!useTime}>▼</button>
       </span>
-      {selectedFactTable === 'banHang' ? (
+      {selectedFactTable === 'banHang_3d' ? (
         <span style={{ marginLeft: 16 }}>
           <label>
             <input

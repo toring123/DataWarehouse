@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 type OLAPState = {
-  fact: string;
+  cube: string;
   dimensions: string[];
   filters: Record<string, string[]>;
   data: any[];
@@ -9,7 +9,7 @@ type OLAPState = {
 };
 
 const initialState: OLAPState = {
-  fact: "banHang",
+  cube: "banHang_3d",
   dimensions: ['Năm'],
   filters: {},
   data: [],
@@ -20,11 +20,11 @@ const API_KEY = 'http://26.83.102.88:8000/dw'
 const API_TEST = 'http://localhost:3000/api/olap-data'
 export const fetchOlapData = createAsyncThunk(
   'olap/fetchOlapData',
-  async ({ fact, dimensions, filters }: { fact: string, dimensions: string[], filters: Record<string, string[]> }) => {
-    const res = await fetch(`${API_TEST}`, {
+  async ({ cube, dimensions, filters }: { cube: string, dimensions: string[], filters: Record<string, string[]> }) => {
+    const res = await fetch(`${API_KEY}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fact, dimensions, filters })
+      body: JSON.stringify({ cube, dimensions, filters })
     });
     return res.json();
   }
@@ -34,8 +34,8 @@ const olapSlice = createSlice({
   name: 'olap',
   initialState,
   reducers: {
-    setFact(state, action: PayloadAction<string>){
-      state.fact = action.payload;
+    setCube(state, action: PayloadAction<string>){
+      state.cube = action.payload;
     },
     setDimensions(state, action: PayloadAction<string[]>) {
       state.dimensions = action.payload;
@@ -57,5 +57,5 @@ const olapSlice = createSlice({
   }
 });
 
-export const { setFact, setDimensions, setFilters } = olapSlice.actions;
+export const { setCube, setDimensions, setFilters } = olapSlice.actions;
 export default olapSlice.reducer;
