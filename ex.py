@@ -13,57 +13,11 @@ from functools import reduce
 connection_string = "Data Source=LAPTOP-84HLVAJD;Initial Catalog=DW"
 
 mdx_query = '''
-SELECT 
-    NON EMPTY { 
-        [Measures].[Tong So Luong Ban], 
-        [Measures].[Tong Doanh Thu] 
-    } ON COLUMNS, 
-    NON EMPTY 
-        Subset(
-            { 
-                (
-                    [Dim Thoi Gian].[Nam].[Nam].ALLMEMBERS * 
-                    [Dim Thoi Gian].[Thang].[Thang].ALLMEMBERS * 
-                    [Dim Khach Hang].[Bang].[Bang].ALLMEMBERS 
-                ) 
-            },
-            50, 50
-        ) DIMENSION PROPERTIES MEMBER_CAPTION, MEMBER_UNIQUE_NAME ON ROWS 
-FROM ( 
-    SELECT ( 
-        { 
-            [Dim Thoi Gian].[Thang].&[1], 
-            [Dim Thoi Gian].[Thang].&[2] 
-        }
-    ) ON COLUMNS 
-    FROM ( 
-        SELECT ( 
-            { 
-                [Dim Thoi Gian].[Nam].&[2023], 
-                [Dim Thoi Gian].[Nam].&[2024] 
-            } 
-        ) ON COLUMNS 
-        FROM ( 
-            SELECT ( 
-                { 
-                    [Dim Khach Hang].[Bang].&[4], 
-                    [Dim Khach Hang].[Bang].&[5] 
-                } 
-            ) ON COLUMNS 
-            FROM [CubeBH_KH_MH_TG]
-        )
-    )
-)
-CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS
+ SELECT NON EMPTY { [Measures].[Tong So Luong Ban], [Measures].[Tong Doanh Thu] } ON COLUMNS FROM [CubeBH_KH_MH_TG] CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS
 '''
-cnt = 0
 with Pyadomd(connection_string) as conn:
         with conn.cursor() as cur:
             cur.execute(mdx_query)
             rows = cur.fetchall()
             for row in rows:
                 print(row)
-                cnt += 1
-
-print(cnt)
-
