@@ -1,6 +1,7 @@
 "use client"
 import LineChart, { ChartDataItem } from "@/app/ui/dashboard/LineChart";
 import { useEffect, useState } from "react";
+import Select from "./Select";
 
 const TYPES = ["Năm", "Quý", "Tháng"];
 
@@ -28,7 +29,7 @@ export default function Chart1() {
 
     // State cho filter
     const [filters, setFilters] = useState({
-        khachHang: "",
+        loaiKhachHang: "",
         thanhPho: "",
         bang: "",
         matHang: ""
@@ -46,7 +47,7 @@ export default function Chart1() {
             cube: 'banHang_3d',
             dimensions,
             filters: {
-                ...(filters.khachHang && { "Khách Hàng": filters.khachHang }),
+                ...(filters.loaiKhachHang && { "Loại Khách Hàng": filters.loaiKhachHang }),
                 ...(filters.thanhPho && { "Thành Phố": filters.thanhPho }),
                 ...(filters.bang && { "Bang": filters.bang }),
                 ...(filters.matHang && { "Mặt Hàng": filters.matHang }),
@@ -74,7 +75,7 @@ export default function Chart1() {
     };
 
     // Xử lý thay đổi filter
-    const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFilters(prev => ({
             ...prev,
@@ -93,7 +94,11 @@ export default function Chart1() {
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 16 }}>
-                <input
+                <Select type={'loaikhachhang'} name="loaiKhachHang" value = {filters.loaiKhachHang} onChangeOption={handleFilterChange} />
+                <Select type={'thanhpho'} name="thanhPho" value ={filters.thanhPho} onChangeOption={handleFilterChange}/>
+                <Select type={'bang'} name="bang" value = {filters.bang} onChangeOption={handleFilterChange}/>
+                <Select type={'mathang'} name="matHang" value = {filters.matHang} onChangeOption={handleFilterChange}/>
+                {/* <input
                     type="text"
                     name="thanhPho"
                     placeholder="Thành Phố"
@@ -116,7 +121,7 @@ export default function Chart1() {
                     value={filters.matHang}
                     onChange={handleFilterChange}
                     style={inputStyle}
-                />
+                /> */}
             </div>
         </div>
 

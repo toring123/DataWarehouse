@@ -1,6 +1,7 @@
 "use client"
 import BarChart, { ChartDataItem } from "@/app/ui/dashboard/BarChart";
 import { useEffect, useState } from "react";
+import Select from "./Select";
 
 const TYPES = ["Năm", "Quý", "Tháng"];
 
@@ -74,7 +75,7 @@ export default function Chart2() {
     };
 
     // Xử lý thay đổi filter
-    const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFilters(prev => ({
             ...prev,
@@ -93,38 +94,10 @@ export default function Chart2() {
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 16 }}>
-                <input
-                    type="text"
-                    name="cuaHang"
-                    placeholder="Cửa Hàng"
-                    value={filters.cuaHang}
-                    onChange={handleFilterChange}
-                    style={inputStyle}
-                />
-                <input
-                    type="text"
-                    name="thanhPho"
-                    placeholder="Thành Phố"
-                    value={filters.thanhPho}
-                    onChange={handleFilterChange}
-                    style={inputStyle}
-                />
-                <input
-                    type="text"
-                    name="bang"
-                    placeholder="Bang"
-                    value={filters.bang}
-                    onChange={handleFilterChange}
-                    style={inputStyle}
-                />
-                <input
-                    type="text"
-                    name="matHang"
-                    placeholder="Mặt Hàng"
-                    value={filters.matHang}
-                    onChange={handleFilterChange}
-                    style={inputStyle}
-                />
+                <Select type = "cuahang" name = "cuaHang" value = {filters.cuaHang} onChangeOption={handleFilterChange}/>
+                <Select type={'thanhpho'} name="thanhPho" value ={filters.thanhPho} onChangeOption={handleFilterChange}/>
+                <Select type={'bang'} name="bang" value = {filters.bang} onChangeOption={handleFilterChange}/>
+                <Select type={'mathang'} name="matHang" value = {filters.matHang} onChangeOption={handleFilterChange}/>
             </div>
         </div>
 
