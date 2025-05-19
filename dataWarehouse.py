@@ -9,7 +9,7 @@ clr.AddReference("Microsoft.AnalysisServices.AdomdClient")
 from pyadomd import Pyadomd
 
 # Kết nối với SSAS
-connection_string = "Data Source=LAPTOP-84HLVAJD;Initial Catalog=DW"
+connection_string = "Provider=MSOLEDBSQL.1;Data Source=LAPTOP-84HLVAJD;Initial Catalog=DW1"
 
 def build_dimension_hierarchy(cube, dimension_name):
     mapping = {
@@ -160,7 +160,7 @@ def get_ds(type: str, cube: str):
 def main():
     cube = "banHang_3d"
     dimensions = ['Bang', 'Năm']
-    filters = {'Năm': [''], 'Quý': [''], 'Tháng': [''], 'Bang': [''], 'Thành Phố': [''], 'Khách Hàng': [''], 'Mặt Hàng': [''], 'Loại Khách Hàng': ['']}
+    filters = {'Năm': [''], 'Quý': [''], 'Tháng': [''], 'Bang': [''], 'Thành Phố': [''], 'Khách Hàng': [''], 'Mặt Hàng': [''], 'Loại Khách Hàng': ['Du lịch', 'Bưu điện']}
     print(get_result_cube_3d(cube, dimensions, filters))
     
     # print(get_ds("Tháng", "banHang_3d"))

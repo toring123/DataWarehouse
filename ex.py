@@ -10,10 +10,16 @@ from pyadomd import Pyadomd
 from functools import reduce
 
 # Kết nối với SSAS
-connection_string = "Data Source=LAPTOP-84HLVAJD;Initial Catalog=DW"
+connection_string = "Data Source=LAPTOP-84HLVAJD;Initial Catalog=DW1"
 
 mdx_query = '''
- SELECT NON EMPTY { [Measures].[Tong So Luong Ban], [Measures].[Tong Doanh Thu] } ON COLUMNS FROM [CubeBH_KH_MH_TG] CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS
+
+    SELECT
+      NON EMPTY { [Measures].[Tong So Luong Ban], [Measures].[Tong Doanh Thu] } ON COLUMNS,
+      NON EMPTY
+        { ([Dim Thoi Gian].[Nam].[Nam].ALLMEMBERS * [Dim Thoi Gian].[Quy].[Quy].ALLMEMBERS) } DIMENSION PROPERTIES MEMBER_CAPTION, MEMBER_UNIQUE_NAME ON ROWS
+    FROM ( SELECT { [Dim Khach Hang].[Loai Khach Hang].[Loai Khach Hang].&[Ca hai] } ON COLUMNS FROM [CubeBH_KH_MH_TG] )       
+    CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS
 '''
 with Pyadomd(connection_string) as conn:
         with conn.cursor() as cur:
