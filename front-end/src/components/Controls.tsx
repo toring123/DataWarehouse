@@ -213,7 +213,7 @@ export default function Controls({
       </span>
       <br />
       {/* filter */}
-      <FilterInputs allDimension={selectedCustomerDim === "banHang_3d" ? allDimension1:allDimension2} onFilterChange={onChangeFilters}/>
+      <FilterInputs allDimension={selectedCustomerDim === "banHang_3d" ? allDimension1 : allDimension2} onFilterChange={onChangeFilters}/>
     </div>
   );
 }

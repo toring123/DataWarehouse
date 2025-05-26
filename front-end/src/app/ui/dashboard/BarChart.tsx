@@ -76,7 +76,7 @@ const BarChart: React.FC<BarChartProps> = ({ chartData, type = "Tháng" }) => {
       },
       title: {
         display: true,
-        text: "Biểu đồ Cột Tổng số lượng nhập & Tổng số lượng xuất",
+        text: "Biểu đồ Cột Tổng số lượng nhập & Tổng số lượng xuất theo thời gian",
       },
     },
     scales: {
