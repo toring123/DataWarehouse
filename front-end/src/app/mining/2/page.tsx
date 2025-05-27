@@ -197,7 +197,7 @@ export default function Mining_2() {
         <input
           type="range"
           id="top_percent"
-          min="0"
+          min="0.01"
           max="1"
           step="0.01"
           value={topPercent}
@@ -211,7 +211,7 @@ export default function Mining_2() {
           }}
         />
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#666' }}>
-          <span>0%</span>
+          <span>1%</span>
           <span>100%</span>
         </div>
       </div>
