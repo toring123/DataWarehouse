@@ -113,9 +113,8 @@ export default function Mining_1() {
                       padding: '12px',
                       verticalAlign: 'top'
                     }}>
-                      {typeof value === 'string' && value.length > 100 
-                        ? `${value.substring(0, 100)}...` 
-                        : String(value)
+                      {
+                       String(value)
                       }
                     </td>
                   ))}

@@ -186,13 +186,14 @@ export default function Mining_2() {
       backgroundColor: '#fff'
     }}>
       <h2 style={{ textAlign: 'center', marginBottom: '30px', color: '#333' }}>
-        Mining Data
+      Thống kê các topic dựa trên tỷ lệ phần trăm bài báo có nhiều lượt truy cập nhất trong một khoảng thời gian
+
       </h2>
 
       {/* Top Percent Slider */}
       <div style={{ marginBottom: '20px' }}>
         <label htmlFor="top_percent" style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>
-          Top Percent: {(topPercent * 100).toFixed(1)}%
+          Top phần trăm bài báo: {(topPercent * 100).toFixed(1)}%
         </label>
         <input
           type="range"
@@ -219,7 +220,7 @@ export default function Mining_2() {
       {/* Month A Input */}
       <div style={{ marginBottom: '20px' }}>
         <label htmlFor="month_a" style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>
-          Month A:
+          Tháng bắt đầu:
         </label>
         <input
           type="number"
@@ -241,7 +242,7 @@ export default function Mining_2() {
       {/* Month B Input */}
       <div style={{ marginBottom: '30px' }}>
         <label htmlFor="month_b" style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>
-          Month B:
+          Tháng kết thúc:
         </label>
         <input
           type="number"
