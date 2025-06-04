@@ -22,7 +22,7 @@ def read_data():
     print("Bắt đầu đọc dữ liệu")
     """# Data Preprocessing"""
     # Đọc tất cả dữ liệu từ mongodb
-    uri = "mongodb+srv://lap:12345@cluster0.89utstf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    uri = "mongodb+srv://***:*****@cluster0.89utstf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
     client = MongoClient(uri, server_api=ServerApi('1'))
     db = client['mining']
     collection = db['paper']
