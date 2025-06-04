@@ -8,6 +8,8 @@ This project aims to build a clustering system for Vietnamese news headlines usi
 
 ## 🧩 System Architecture
 
+![System Architecture](./result/System_Architecture.png)
+
 The system is composed of the following components:
 
 1. **Data Collection**:
@@ -91,4 +93,38 @@ The system is composed of the following components:
 
 ---
 
+## 🚀 Deployment Instructions
 
+1. **Install dependencies**:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+2. **Start Daily Task** in order to update data every 1 am:
+    ```bash
+    python daily_task.py
+    ```
+
+3. **Start Backend** in new terminal:
+    ```bash
+    python app.py
+    ```
+
+4. **Start Frontend** in new terminal:
+    ```bash
+    cd front-end
+    npm run dev
+    ```
+## 🖼️ Sample Results
+
+Below are example outputs from the system:
+
+### 🔹 List of news headlines for a specific topic
+
+![Live Stream Example](./result/result1.png)
+
+### 🔹 Statistics of search volume by topic
+
+![License Log Example](./result/result2.png)
+
+---
