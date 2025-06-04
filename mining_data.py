@@ -225,7 +225,7 @@ def clustering_data_and_creating_name(dt, t_list, df):
         mapping_t2c[titles[i]] = clusters[i]
 
     # Thiết lập API key
-    API_KEY = "sk-98fe561b475c4318a5874f7c701efaa7"
+    API_KEY = "************************"
     API_URL = "https://api.deepseek.com"
 
     client = OpenAI(
@@ -309,7 +309,7 @@ def clustering_data_and_creating_name(dt, t_list, df):
 
 def save_data(df):
     print("Bắt đầu lưu dữ liệu")
-    uri = "mongodb+srv://lap:12345@cluster0.89utstf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    uri = "mongodb+srv://***:*****@cluster0.89utstf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
     client = MongoClient(uri, server_api=ServerApi('1'))
     db_target = client['mining']
     collection_target = db_target['paper_mining1']
